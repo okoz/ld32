@@ -1,6 +1,9 @@
 /Library
+/Temp
 
 /*.opensdf
 /*.sdf
 /*.sln
 /*.suo
+/*.csproj
+/obj
