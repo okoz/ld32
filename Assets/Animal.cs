@@ -29,8 +29,7 @@ internal class StateMachine
 public class Animal : MonoBehaviour
 {
     private CharacterController characterController;
-
-    private Vector3 direction;
+    private LineRenderer lineRenderer;
 
     private StateMachine stateMachine;
 
@@ -43,6 +42,7 @@ public class Animal : MonoBehaviour
         stateMachine.SetState("Idle");
 
         characterController = GetComponent<CharacterController>();
+        lineRenderer = GetComponent<LineRenderer>();
         path = new NavMeshPath();
 	}
 	
@@ -82,6 +82,15 @@ public class Animal : MonoBehaviour
         {
             NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
             nextPathIndex = 0;
+
+            if(lineRenderer != null)
+            {
+                lineRenderer.SetVertexCount(path.corners.Length);
+                for(int i = 0; i < path.corners.Length; ++i)
+                {
+                    lineRenderer.SetPosition(i, path.corners[i]);
+                }
+            }
         }
     }
 
