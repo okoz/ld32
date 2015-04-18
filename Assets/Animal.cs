@@ -28,6 +28,8 @@ internal class StateMachine
 
 public class Animal : MonoBehaviour
 {
+    public float Speed;
+
     private CharacterController characterController;
     private LineRenderer lineRenderer;
 
@@ -96,7 +98,7 @@ public class Animal : MonoBehaviour
 
     private bool IsCloseEnough(Vector3 a, Vector3 b)
     {
-        return Vector3.SqrMagnitude(a - b) < 1.0f;
+        return Vector3.SqrMagnitude(a - b) < characterController.radius;
     }
 
     public Vector3 NextWaypoint()
@@ -142,7 +144,12 @@ public class Animal : MonoBehaviour
     {
         if (!AtDestination())
         {
-            characterController.SimpleMove((NextWaypoint() - transform.position).normalized * 5.0f);
+            Vector3 nextWaypoint = NextWaypoint();
+            characterController.Move((nextWaypoint - transform.position).normalized * Speed * Time.deltaTime);
+
+            // So the animals don't look down.
+            nextWaypoint.y = transform.position.y;
+            transform.LookAt(nextWaypoint);
         }
         else
             machine.SetState("Idle");
