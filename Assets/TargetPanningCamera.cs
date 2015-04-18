@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controller that can pan the camera about the Y axis of a target.
+/// </summary>
 public class TargetPanningCamera : MonoBehaviour
 {
     public Transform Target;
