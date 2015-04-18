@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class ExtensionMethods {
+public static class ExtensionMethods
+{
     public static Color FromHSV(float h, float s, float v)
     {
         float c = v * s;

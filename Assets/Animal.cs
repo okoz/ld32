@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 internal class StateMachine
 {
@@ -33,11 +34,12 @@ public class Animal : MonoBehaviour
     private CharacterController characterController;
     private LineRenderer lineRenderer;
 
-    private StateMachine stateMachine;
+    private StateMachine stateMachine = new StateMachine();
 
 	void Start()
     {
-        stateMachine = new StateMachine();
+        path = new NavMeshPath();
+
         stateMachine.AddState("Idle", Idle);
         stateMachine.AddState("Walking", Walking);
         stateMachine.AddState("Grazing", Grazing);
@@ -45,7 +47,6 @@ public class Animal : MonoBehaviour
 
         characterController = GetComponent<CharacterController>();
         lineRenderer = GetComponent<LineRenderer>();
-        path = new NavMeshPath();
 	}
 	
 	void Update()
@@ -98,7 +99,7 @@ public class Animal : MonoBehaviour
 
     private bool IsCloseEnough(Vector3 a, Vector3 b)
     {
-        return Vector3.SqrMagnitude(a - b) < characterController.radius;
+        return Vector3.SqrMagnitude(a - b) < characterController.radius * characterController.radius;
     }
 
     public Vector3 NextWaypoint()
@@ -131,6 +132,34 @@ public class Animal : MonoBehaviour
 
         return false;
     }
+
+    #endregion
+
+    #region Effects.
+
+    private bool isSlowed;
+
+    public void Slow(float fraction, float duration)
+    {
+        StartCoroutine(SlowEffect(fraction, duration));
+    }
+
+    private IEnumerator SlowEffect(float fraction, float duration)
+    {
+        if (!isSlowed)
+        {
+            float oldSpeed = Speed;
+
+            isSlowed = true;
+            Speed *= fraction;
+
+            yield return new WaitForSeconds(duration);
+
+            isSlowed = false;
+            Speed = oldSpeed;
+        }
+    }
+
     #endregion
 
     #region Machine states.
