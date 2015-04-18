@@ -27,9 +27,6 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
-            float power = MinForce + FireStatus.value * (MaxForce - MinForce);
-            SetSliderValue(0.0f);
-
             if (Projectiles.Length > 0)
             {
                 GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[0]);
@@ -40,9 +37,11 @@ public class Gun : MonoBehaviour
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.AddForce(mouseRay.direction * power, ForceMode.Impulse);
+                    rb.AddForce(mouseRay.direction * GetPower(), ForceMode.Impulse);
                 }
             }
+
+            SetSliderValue(0.0f);
         }
         else if (Input.GetButtonDown("Fire1"))
         {
@@ -54,8 +53,13 @@ public class Gun : MonoBehaviour
             SetSliderValue(FireStatus.value + Time.deltaTime);
         }
 
-        DisplayFireArc(FireStatus.value);
+        DisplayFireArc(GetPower());
 	}
+
+    private float GetPower()
+    {
+        return MinForce + FireStatus.value * (MaxForce - MinForce);
+    }
 
     private void SetSliderValue(float value)
     {
