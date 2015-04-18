@@ -8,9 +8,14 @@ public class Gun : MonoBehaviour
     public float MaxForce;
     public float MinForce;
     public Slider FireStatus;
+    public Image FireStatusBackground;
 
 	void Start()
     {
+        if(FireStatus != null)
+        {
+            FireStatusBackground = FireStatus.transform.FindChild("Fill Area").GetComponentInChildren<Image>();
+        }
 
 	}
 	
@@ -50,5 +55,6 @@ public class Gun : MonoBehaviour
     private void SetSliderValue(float value)
     {
         FireStatus.value = Mathf.Clamp(value, 0.0f, 1.0f);
+        FireStatusBackground.color = ExtensionMethods.FromHSV(FireStatus.value * 100.0f, 1.0f, 1.0f);
     }
 }
