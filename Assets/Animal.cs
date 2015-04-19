@@ -50,6 +50,7 @@ public class Animal : MonoBehaviour
 
         stateMachine.AddState("Idle", Idle);
         stateMachine.AddState("Walking", Walking);
+        stateMachine.AddState("AngryIdle", AngryIdle);
         stateMachine.AddState("Angry", Angry);
         stateMachine.SetState("Idle");
 
@@ -153,6 +154,12 @@ public class Animal : MonoBehaviour
 
     public void Slow(float fraction)
     {
+        // Force a new path if the sheep was angry before.
+        if (demeanor == Demeanor.Angry)
+        {
+            stateMachine.SetState("Idle");
+        }
+
         demeanor = demeanor.Decrement();
         slowFraction = fraction;
     }
@@ -160,6 +167,11 @@ public class Animal : MonoBehaviour
     public void Anger()
     {
         demeanor = demeanor.Increment();
+
+        if (demeanor == Demeanor.Angry)
+        {
+            stateMachine.SetState("AngryIdle");
+        }
     }
 
     #endregion
@@ -192,6 +204,7 @@ public class Animal : MonoBehaviour
             transform.LookAt(nextWaypoint);
         }
 
+        // Should handle both stuck and end of movement.
         if (lastPosition == transform.position)
         {
             machine.SetState("Idle");
@@ -200,9 +213,19 @@ public class Animal : MonoBehaviour
         lastPosition = transform.position;
     }
 
+    private void AngryIdle(StateMachine machine)
+    {
+        path.ClearCorners();
+        if (lineRenderer != null)
+        {
+            lineRenderer.SetVertexCount(0);
+        }
+
+        machine.SetState("Angry");
+    }
+
     private void Angry(StateMachine machine)
     {
-
     }
 
     #endregion
