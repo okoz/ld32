@@ -26,10 +26,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 462838}
-  - 65: {fileID: 6567436}
   - 114: {fileID: 11451780}
   - 143: {fileID: 14309134}
   - 120: {fileID: 12069266}
+  - 54: {fileID: 5441968}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -94,18 +94,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146038}
   m_Mesh: {fileID: 4300000, guid: e7e6d2052f3d19a4db6409002c5c09dd, type: 3}
---- !u!65 &6567436
-BoxCollider:
+--- !u!54 &5441968
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191348}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &9535098
 Animator:
   serializedVersion: 3

@@ -12,9 +12,9 @@ GameObject:
   - 135: {fileID: 13599008}
   - 23: {fileID: 2393746}
   - 54: {fileID: 5426924}
-  - 114: {fileID: 11435498}
+  - 114: {fileID: 11495594}
   m_Layer: 0
-  m_Name: SlowBullet
+  m_Name: AngryBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: f951e797f1659fb4082ba6996d915681, type: 2}
+  - {fileID: 2100000, guid: 319a9fe4bfddcaa448946165d8d39378, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -78,7 +78,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &11435498
+--- !u!114 &11495594
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,12 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 124846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93d99073f7aec44c815a79f664945db, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d2a37a27ab180f4f9dc6af865d53fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: ccfdcebea1c745944bf19120dcaadd87, type: 3}
-  Fraction: .5
-  Duration: 5
+  Icon: {fileID: 21300000, guid: 2dc807ea8477b764bb861212821b57e5, type: 3}
 --- !u!135 &13599008
 SphereCollider:
   m_ObjectHideFlags: 1

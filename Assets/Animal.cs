@@ -55,6 +55,7 @@ public class Animal : MonoBehaviour
     }
 
     #region Animal interface.
+    
     bool RandomPointOnNavmesh(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 32; ++i)
@@ -163,6 +164,7 @@ public class Animal : MonoBehaviour
     #endregion
 
     #region Machine states.
+    
     private void Idle(StateMachine machine)
     {
         FindNewGrazingSpot();
@@ -188,5 +190,6 @@ public class Animal : MonoBehaviour
     {
 
     }
+
     #endregion
 }

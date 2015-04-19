@@ -25,6 +25,15 @@ public class Gun : MonoBehaviour
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         AimAt(mouseRay.direction);
 
+        if (Input.GetButtonDown("Weapon 1"))
+        {
+            SetProjectile(0);
+        }
+        else if(Input.GetButtonDown("Weapon 2"))
+        {
+            SetProjectile(1);
+        }
+
         if (Input.GetButtonUp("Fire1"))
         {
             if (activeProjectile != null)
