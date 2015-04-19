@@ -30,6 +30,7 @@ GameObject:
   - 143: {fileID: 14309134}
   - 120: {fileID: 12069266}
   - 54: {fileID: 5481290}
+  - 95: {fileID: 9500174}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Sheep
@@ -55,8 +56,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .5, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
+  m_LocalPosition: {x: 7.13000011, y: .5, z: 4.74900007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428450}
@@ -108,6 +109,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &9500174
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191348}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dbd0c2e505035fa49b71ba84d1291415, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9535098
 Animator:
   serializedVersion: 3
@@ -117,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 146038}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e7e6d2052f3d19a4db6409002c5c09dd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dbd0c2e505035fa49b71ba84d1291415, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
