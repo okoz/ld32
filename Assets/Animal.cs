@@ -37,12 +37,18 @@ public enum Demeanor
 public class Animal : MonoBehaviour
 {
     public float Speed;
+    public float BiteRange;
 
     private CharacterController characterController;
     private LineRenderer lineRenderer;
 
     private StateMachine stateMachine = new StateMachine();
     private Demeanor demeanor = Demeanor.Normal;
+
+    public Demeanor Demeanor
+    {
+        get { return demeanor; }
+    }
 
 	void Start()
     {
@@ -67,8 +73,6 @@ public class Animal : MonoBehaviour
     
     bool RandomPointOnNavmesh(Vector3 center, float range, out Vector3 result)
     {
-        int areaMask = NavMesh.GetAreaFromName("Walkable");
-
         for (int i = 0; i < 32; ++i)
         {
             Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * range;
@@ -90,7 +94,7 @@ public class Animal : MonoBehaviour
     private NavMeshPath path;
     private int nextPathIndex;
 
-    public void FindNewGrazingSpot()
+    private void FindNewGrazingSpot()
     {
         Vector3 destination;
         if(RandomPointOnNavmesh(transform.position.ProjectY(0.0f), 20.0f, out destination))
@@ -172,7 +176,6 @@ public class Animal : MonoBehaviour
 
     #region Effects.
 
-    private bool isSlowed;
     private float slowFraction;
 
     public void Slow(float fraction)
@@ -252,8 +255,15 @@ public class Animal : MonoBehaviour
         GameObject target = FindClosestSheep();
         if (target != null)
         {
-            Vector3 moveDirection = (target.transform.position - transform.position).ProjectY(0.0f).normalized;
+            Vector3 displacement = target.transform.position - transform.position;
+            Vector3 moveDirection = (displacement).ProjectY(0.0f).normalized;
             characterController.SimpleMove(moveDirection * Speed);
+            transform.LookAt(target.transform.position);
+
+            if (displacement.sqrMagnitude <= BiteRange * BiteRange)
+            {
+                Destroy(target);
+            }
         }
     }
 

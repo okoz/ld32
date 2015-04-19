@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  BiteRange: 1.29999995
 --- !u!120 &12069266
 LineRenderer:
   m_ObjectHideFlags: 1
