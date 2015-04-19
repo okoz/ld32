@@ -43,6 +43,7 @@ public class Animal : MonoBehaviour
         stateMachine.AddState("Idle", Idle);
         stateMachine.AddState("Walking", Walking);
         stateMachine.AddState("Grazing", Grazing);
+        stateMachine.AddState("Angry", Angry);
         stateMachine.SetState("Idle");
 
         characterController = GetComponent<CharacterController>();
@@ -58,13 +59,15 @@ public class Animal : MonoBehaviour
     
     bool RandomPointOnNavmesh(Vector3 center, float range, out Vector3 result)
     {
+        int areaMask = NavMesh.GetAreaFromName("Walkable");
+
         for (int i = 0; i < 32; ++i)
         {
             Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * range;
             Vector3 randomSource = center + new Vector3(randomCircle.x, 0.0f, randomCircle.y);
 
             NavMeshHit hit;
-            if(NavMesh.SamplePosition(randomSource, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomSource, out hit, 1.0f, 1))
             {
                 result = hit.position;
                 result.y = center.y;
@@ -82,9 +85,9 @@ public class Animal : MonoBehaviour
     public void FindNewGrazingSpot()
     {
         Vector3 destination;
-        if(RandomPointOnNavmesh(transform.position, 50.0f, out destination))
+        if(RandomPointOnNavmesh(transform.position, 20.0f, out destination))
         {
-            NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
+            NavMesh.CalculatePath(transform.position, destination, 1, path);
             nextPathIndex = 0;
 
             if(lineRenderer != null)
@@ -100,7 +103,9 @@ public class Animal : MonoBehaviour
 
     private bool IsCloseEnough(Vector3 a, Vector3 b)
     {
-        return Vector3.SqrMagnitude(a - b) < characterController.radius * characterController.radius;
+        Vector3 projA = new Vector3(a.x, 0, a.z);
+        Vector3 projB = new Vector3(b.x, 0, b.z);
+        return Vector3.SqrMagnitude(projA - projB) < characterController.radius * characterController.radius;
     }
 
     public Vector3 NextWaypoint()
@@ -192,6 +197,11 @@ public class Animal : MonoBehaviour
     }
 
     private void Grazing(StateMachine machine)
+    {
+
+    }
+
+    private void Angry(StateMachine machine)
     {
 
     }
