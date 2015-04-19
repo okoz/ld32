@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SlowBullet : MonoBehaviour
+public class SlowBullet : Bullet
 {
     public float Fraction;
     public float Duration;

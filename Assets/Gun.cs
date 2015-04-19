@@ -9,18 +9,15 @@ public class Gun : MonoBehaviour
     public float MinForce;
     public Slider FireStatus;
     public Image FireStatusBackground;
+    public Image ActiveWeaponIcon;
 
     private LineRenderer lineRenderer;
+    private GameObject activeProjectile;
 
 	void Start()
     {
-        if(FireStatus != null)
-        {
-            Transform child = FireStatus.transform.FindChild("Fill Area");
-            FireStatusBackground = child.GetComponentInChildren<Image>();
-        }
-
         lineRenderer = GetComponent<LineRenderer>();
+        SetProjectile(0);
 	}
 	
 	void Update()
@@ -30,9 +27,9 @@ public class Gun : MonoBehaviour
 
         if (Input.GetButtonUp("Fire1"))
         {
-            if (Projectiles.Length > 0)
+            if (activeProjectile != null)
             {
-                GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[0]);
+                GameObject projectile = GameObject.Instantiate<GameObject>(activeProjectile);
 
                 projectile.transform.position = transform.position;
 
@@ -89,5 +86,17 @@ public class Gun : MonoBehaviour
     private void AimAt(Vector3 direction)
     {
         transform.LookAt(transform.position + direction, Vector3.up);
+    }
+
+    private void SetProjectile(int i)
+    {
+        if (i < Projectiles.Length)
+        {
+            activeProjectile = Projectiles[i];
+
+            Bullet bullet = activeProjectile.GetComponent<Bullet>();
+            ActiveWeaponIcon.sprite = bullet.Icon;
+            
+        }
     }
 }
