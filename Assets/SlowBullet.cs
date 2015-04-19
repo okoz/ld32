@@ -11,7 +11,7 @@ public class SlowBullet : Bullet
         Animal animal = collision.gameObject.GetComponent<Animal>();
         if(animal != null)
         {
-            animal.Slow(Fraction, Duration);
+            animal.Slow(Fraction);
         }
 
         Destroy(gameObject);

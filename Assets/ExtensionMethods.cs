@@ -24,4 +24,39 @@ public static class ExtensionMethods
 
         return Color.black;
     }
+
+    public static Demeanor Increment(this Demeanor effect)
+    {
+        switch (effect)
+        {
+            case Demeanor.Slow:
+                return Demeanor.Normal;
+            case Demeanor.Normal:
+                return Demeanor.Angry;
+            case Demeanor.Angry:
+                return Demeanor.Angry;
+        }
+
+        return Demeanor.Normal;
+    }
+
+    public static Demeanor Decrement(this Demeanor effect)
+    {
+        switch (effect)
+        {
+            case Demeanor.Slow:
+                return Demeanor.Slow;
+            case Demeanor.Normal:
+                return Demeanor.Slow;
+            case Demeanor.Angry:
+                return Demeanor.Normal;
+        }
+
+        return Demeanor.Normal;
+    }
+
+    public static Vector3 ProjectY(this Vector3 v, float y)
+    {
+        return new Vector3(v.x, y, v.z);
+    }
 }

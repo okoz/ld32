@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11451780}
   - 143: {fileID: 14309134}
   - 120: {fileID: 12069266}
-  - 54: {fileID: 5441968}
+  - 54: {fileID: 5481290}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -93,14 +93,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146038}
   m_Mesh: {fileID: 4300000, guid: 0616d5592e377824aabcc760a0be0cf3, type: 3}
---- !u!54 &5441968
+--- !u!54 &5481290
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191348}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1

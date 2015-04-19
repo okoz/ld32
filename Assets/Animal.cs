@@ -27,6 +27,13 @@ internal class StateMachine
     }
 }
 
+public enum Demeanor
+{
+    Slow,
+    Normal,
+    Angry
+}
+
 public class Animal : MonoBehaviour
 {
     public float Speed;
@@ -35,6 +42,7 @@ public class Animal : MonoBehaviour
     private LineRenderer lineRenderer;
 
     private StateMachine stateMachine = new StateMachine();
+    private Demeanor demeanor = Demeanor.Normal;
 
 	void Start()
     {
@@ -42,7 +50,6 @@ public class Animal : MonoBehaviour
 
         stateMachine.AddState("Idle", Idle);
         stateMachine.AddState("Walking", Walking);
-        stateMachine.AddState("Grazing", Grazing);
         stateMachine.AddState("Angry", Angry);
         stateMachine.SetState("Idle");
 
@@ -85,7 +92,7 @@ public class Animal : MonoBehaviour
     public void FindNewGrazingSpot()
     {
         Vector3 destination;
-        if(RandomPointOnNavmesh(transform.position, 20.0f, out destination))
+        if(RandomPointOnNavmesh(transform.position.ProjectY(0.0f), 20.0f, out destination))
         {
             NavMesh.CalculatePath(transform.position, destination, 1, path);
             nextPathIndex = 0;
@@ -103,9 +110,7 @@ public class Animal : MonoBehaviour
 
     private bool IsCloseEnough(Vector3 a, Vector3 b)
     {
-        Vector3 projA = new Vector3(a.x, 0, a.z);
-        Vector3 projB = new Vector3(b.x, 0, b.z);
-        return Vector3.SqrMagnitude(projA - projB) < characterController.radius * characterController.radius;
+        return Vector3.SqrMagnitude(a.ProjectY(0.0f) - b.ProjectY(0.0f)) < characterController.radius * characterController.radius;
     }
 
     public Vector3 NextWaypoint()
@@ -144,31 +149,17 @@ public class Animal : MonoBehaviour
     #region Effects.
 
     private bool isSlowed;
+    private float slowFraction;
 
-    public void Slow(float fraction, float duration)
+    public void Slow(float fraction)
     {
-        StartCoroutine(SlowEffect(fraction, duration));
-    }
-
-    private IEnumerator SlowEffect(float fraction, float duration)
-    {
-        if (!isSlowed)
-        {
-            float oldSpeed = Speed;
-
-            isSlowed = true;
-            Speed *= fraction;
-
-            yield return new WaitForSeconds(duration);
-
-            isSlowed = false;
-            Speed = oldSpeed;
-        }
+        demeanor = demeanor.Decrement();
+        slowFraction = fraction;
     }
 
     public void Anger()
     {
-
+        demeanor = demeanor.Increment();
     }
 
     #endregion
@@ -181,24 +172,32 @@ public class Animal : MonoBehaviour
         machine.SetState("Walking");
     }
 
+    Vector3 lastPosition;
+
     private void Walking(StateMachine machine)
     {
         if (!AtDestination())
         {
             Vector3 nextWaypoint = NextWaypoint();
-            characterController.Move((nextWaypoint - transform.position).normalized * Speed * Time.deltaTime);
+            float effectiveSpeed = Speed;
+            
+            if (demeanor == Demeanor.Slow)
+                effectiveSpeed *= slowFraction;
+
+            Vector3 moveDirection = (nextWaypoint - transform.position).ProjectY(0.0f);            
+            characterController.SimpleMove(moveDirection.normalized * effectiveSpeed);
 
             // So the animals don't look down.
             nextWaypoint.y = transform.position.y;
             transform.LookAt(nextWaypoint);
         }
-        else
+
+        if (lastPosition == transform.position)
+        {
             machine.SetState("Idle");
-    }
+        }
 
-    private void Grazing(StateMachine machine)
-    {
-
+        lastPosition = transform.position;
     }
 
     private void Angry(StateMachine machine)
