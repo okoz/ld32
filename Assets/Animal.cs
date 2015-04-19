@@ -161,6 +161,11 @@ public class Animal : MonoBehaviour
         }
     }
 
+    public void Anger()
+    {
+
+    }
+
     #endregion
 
     #region Machine states.
