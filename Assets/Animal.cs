@@ -109,6 +109,29 @@ public class Animal : MonoBehaviour
         }
     }
 
+    private GameObject FindClosestSheep()
+    {
+        // Damn plurals.
+        GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
+        GameObject closest = null;
+
+        float distance = float.MaxValue;
+        foreach (GameObject sheep in sheeps)
+        {
+            if (sheep == gameObject)
+                continue;
+
+            float d = (sheep.transform.position - transform.position).sqrMagnitude;
+            if (d < distance)
+            {
+                closest = sheep;
+                distance = d;
+            }
+        }
+
+        return closest;
+    }
+
     private bool IsCloseEnough(Vector3 a, Vector3 b)
     {
         return Vector3.SqrMagnitude(a.ProjectY(0.0f) - b.ProjectY(0.0f)) < characterController.radius * characterController.radius;
@@ -226,6 +249,12 @@ public class Animal : MonoBehaviour
 
     private void Angry(StateMachine machine)
     {
+        GameObject target = FindClosestSheep();
+        if (target != null)
+        {
+            Vector3 moveDirection = (target.transform.position - transform.position).ProjectY(0.0f).normalized;
+            characterController.SimpleMove(moveDirection * Speed);
+        }
     }
 
     #endregion
