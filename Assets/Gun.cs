@@ -5,14 +5,15 @@ using UnityEngine.UI;
 public class Gun : MonoBehaviour
 {
     public GameObject[] Projectiles;
-    public float MaxForce;
-    public float MinForce;
     public Slider FireStatus;
     public Image FireStatusBackground;
+    public Image FireStatusForeground;
     public GameObject[] GunPoints;
+    public float ReloadTime;
 
     private LineRenderer lineRenderer;
     private Plane groundPlane = new Plane(Vector3.up, 0.0f);
+    private float reloadTimer;
 
 	void Start()
     {
@@ -31,49 +32,59 @@ public class Gun : MonoBehaviour
         float dy = -origin.y;
         float v0 = dx * Mathf.Sqrt(-Physics.gravity.magnitude / (2.0f * dy));
 
-        if (Input.GetButton("Fire1") || Input.GetButton("Fire2"))
-        {
-            DisplayFireArc(origin, target);
-        }
-        else
-        {
-            ClearFireArc();
-        }
+        reloadTimer = Mathf.Clamp(reloadTimer - Time.deltaTime, 0.0f, ReloadTime);
 
-        if (Input.GetButtonUp("Fire1"))
+        if (reloadTimer <= 0.0f)
         {
-            GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[0]);
-
-            projectile.transform.position = origin;
-
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (Input.GetButton("Fire1") || Input.GetButton("Fire2"))
             {
-                rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
+                DisplayFireArc(origin, target);
+            }
+            else
+            {
+                ClearFireArc();
             }
 
-            ClearFireArc();
-        }
-        else if (Input.GetButtonUp("Fire2"))
-        {
-            GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[1]);
-
-            projectile.transform.position = origin;
-
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (Input.GetButtonUp("Fire1"))
             {
-                rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
-            }
+                GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[0]);
 
-            ClearFireArc();
+                projectile.transform.position = origin;
+
+                Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
+                }
+
+                ClearFireArc();
+                reloadTimer = ReloadTime;
+            }
+            else if (Input.GetButtonUp("Fire2"))
+            {
+                GameObject projectile = GameObject.Instantiate<GameObject>(Projectiles[1]);
+
+                projectile.transform.position = origin;
+
+                Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
+                }
+
+                ClearFireArc();
+                reloadTimer = ReloadTime;
+            }
         }
+
+        SetSliderValue(reloadTimer / ReloadTime);
 	}
 
     private void SetSliderValue(float value)
     {
         FireStatus.value = Mathf.Clamp(value, 0.0f, 1.0f);
-        FireStatusBackground.color = ExtensionMethods.FromHSV(FireStatus.value * 100.0f, 1.0f, 1.0f);
+        FireStatusBackground.color = ExtensionMethods.FromHSV((1.0f - FireStatus.value) * 100.0f, 1.0f, 1.0f);
+        FireStatusForeground.color = FireStatusBackground.color;
     }
 
     private void DisplayFireArc(Vector3 origin, Vector3 target)
