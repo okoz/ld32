@@ -20,6 +20,7 @@ public class GameMaster : MonoBehaviour {
         {
             // You lose.
             PlayerGun.SetActive(false);
+            StopSheep();
         }
         else
         {
@@ -29,6 +30,20 @@ public class GameMaster : MonoBehaviour {
             {
                 // Victory!
                 PlayerGun.SetActive(false);
+                StopSheep();
+            }
+        }
+    }
+
+    private void StopSheep()
+    {
+        GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
+        foreach (GameObject sheep in sheeps)
+        {
+            Animal animal = sheep.GetComponent<Animal>();
+            if (animal != null)
+            {
+                animal.Stop();
             }
         }
     }

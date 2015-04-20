@@ -60,6 +60,7 @@ public class Animal : MonoBehaviour
         stateMachine.AddState("Walking", Walking);
         stateMachine.AddState("AngryIdle", AngryIdle);
         stateMachine.AddState("Angry", Angry);
+        stateMachine.AddState("Stopped", Stopped);
         stateMachine.SetState("Idle");
 
         characterController = GetComponent<CharacterController>();
@@ -209,6 +210,11 @@ public class Animal : MonoBehaviour
         }
     }
 
+    public void Stop()
+    {
+        stateMachine.SetState("Stopped");
+    }
+
     #endregion
 
     #region Machine states.
@@ -279,6 +285,15 @@ public class Animal : MonoBehaviour
 
                 Destroy(target);
             }
+        }
+    }
+
+    private void Stopped(StateMachine machine)
+    {
+        path.ClearCorners();
+        if (lineRenderer != null)
+        {
+            lineRenderer.SetVertexCount(0);
         }
     }
 
