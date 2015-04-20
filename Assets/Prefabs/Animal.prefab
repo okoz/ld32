@@ -158,6 +158,7 @@ MonoBehaviour:
   BiteRange: 1.29999995
   HypoRoot: {fileID: 428450}
   WaypointRange: 20
+  GibExplosion: {fileID: 136186, guid: 01c6937e4e9fd7246a0558652614be2c, type: 2}
 --- !u!120 &12069266
 LineRenderer:
   m_ObjectHideFlags: 1
