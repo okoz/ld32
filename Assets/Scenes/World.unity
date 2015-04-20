@@ -7135,6 +7135,10 @@ Prefab:
       propertyPath: CantKill.Array.data[14]
       value: 
       objectReference: {fileID: 621312961}
+    - target: {fileID: 11425962, guid: 7a0ccbcc7de0f3b4a964db43e9c411c1, type: 2}
+      propertyPath: PlayerGun
+      value: 
+      objectReference: {fileID: 1265448836}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a0ccbcc7de0f3b4a964db43e9c411c1, type: 2}
   m_IsPrefabParent: 0

@@ -12,14 +12,24 @@ public class GameMaster : MonoBehaviour {
 	
 	void Update ()
     {
-	    if (MustKill.Count == 0)
-        {
-            // Victory!
-        }
 	}
 
     public void OnKill(GameObject go)
     {
+        if (CantKill.Contains(go))
+        {
+            // You lose.
+            PlayerGun.SetActive(false);
+        }
+        else
+        {
+            MustKill.Remove(go);
 
+            if (MustKill.Count == 0)
+            {
+                // Victory!
+                PlayerGun.SetActive(false);
+            }
+        }
     }
 }
