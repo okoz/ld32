@@ -28,10 +28,6 @@ public class Gun : MonoBehaviour
         Vector3 target = mouseRay.GetPoint(t);
         Vector3 origin = GetNearestGunPoint(target).transform.position;
 
-        float dx = (origin.ProjectY(0) - target.ProjectY(0)).magnitude;
-        float dy = -origin.y;
-        float v0 = dx * Mathf.Sqrt(-Physics.gravity.magnitude / (2.0f * dy));
-
         reloadTimer = Mathf.Clamp(reloadTimer - Time.deltaTime, 0.0f, ReloadTime);
 
         if (reloadTimer <= 0.0f)
