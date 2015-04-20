@@ -65,8 +65,8 @@ public class GameMaster : MonoBehaviour
     private Vector3 RandomSpawnPoint()
     {
         Vector3 position = transform.position;
-        position.x += Random.RandomRange(-SpawnExtents.x, SpawnExtents.x);
-        position.z += Random.RandomRange(-SpawnExtents.y, SpawnExtents.y);
+        position.x += 0.5f * Random.RandomRange(-SpawnExtents.x, SpawnExtents.x);
+        position.z += 0.5f * Random.RandomRange(-SpawnExtents.y, SpawnExtents.y);
         return position;
     }
 
