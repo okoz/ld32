@@ -88,11 +88,13 @@ public class Gun : MonoBehaviour
         float dx = (origin.ProjectY(0) - target.ProjectY(0)).magnitude;
         float dy = -origin.y;
         float v0 = dx * Mathf.Sqrt(-Physics.gravity.magnitude / (2.0f * dy));
+        float T = dx / v0;
 
+        float dt = T / 31.0f;
         lineRenderer.SetVertexCount(32);
         for(int i = 0; i < 32; ++i)
         {
-            float t = 0.1f * i;
+            float t = dt * i;
             Vector3 p = origin + v0 * (target - origin).ProjectY(0).normalized * t + 0.5f * Physics.gravity * t * t;
             lineRenderer.SetPosition(i, p);
         }
