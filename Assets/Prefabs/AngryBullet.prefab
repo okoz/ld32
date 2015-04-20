@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 2dc807ea8477b764bb861212821b57e5, type: 3}
   Speed: 1
-  HitDistance: .5
+  HitDistance: 1
 --- !u!136 &13681770
 CapsuleCollider:
   m_ObjectHideFlags: 1

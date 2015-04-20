@@ -2,6 +2,20 @@
 using System.Collections.Generic;
 using System.Collections;
 
+[System.Serializable]
+public class LevelInfo
+{
+    public int NumPink;
+    public int NumBlack;
+    public int NumWhite;
+    public int NumNuggets;
+
+    public int KillPink;
+    public int KillBlack;
+    public int KillWhite;
+    public int KillNuggets;
+}
+
 public class GameMaster : MonoBehaviour {
     public List<GameObject> MustKill;
     public List<GameObject> CantKill;
@@ -10,6 +24,12 @@ public class GameMaster : MonoBehaviour {
     public GameObject WinScreen;
     public float DetonationStartDelay;
     public float DetonationDelay;
+
+    public GameObject PinkSheep;
+    public GameObject BlackSheep;
+    public GameObject WhiteSheep;
+    public GameObject NuggetSheep;
+    public LevelInfo[] Levels;
 
     public void OnKill(GameObject go)
     {

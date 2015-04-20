@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: ccfdcebea1c745944bf19120dcaadd87, type: 3}
   Speed: 1
-  HitDistance: .5
+  HitDistance: 1
   Fraction: .5
   Duration: 5
 --- !u!136 &13664190
