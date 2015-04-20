@@ -157,6 +157,7 @@ MonoBehaviour:
   Speed: 3
   BiteRange: 1.29999995
   HypoRoot: {fileID: 428450}
+  WaypointRange: 20
 --- !u!120 &12069266
 LineRenderer:
   m_ObjectHideFlags: 1

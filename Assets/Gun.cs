@@ -35,6 +35,10 @@ public class Gun : MonoBehaviour
         {
             DisplayFireArc(origin, target);
         }
+        else
+        {
+            ClearFireArc();
+        }
 
         if (Input.GetButtonUp("Fire1"))
         {

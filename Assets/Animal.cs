@@ -39,6 +39,7 @@ public class Animal : MonoBehaviour
     public float Speed;
     public float BiteRange;
     public Transform HypoRoot;
+    public float WaypointRange;
 
     private CharacterController characterController;
     private LineRenderer lineRenderer;
@@ -105,7 +106,7 @@ public class Animal : MonoBehaviour
     private void FindNewGrazingSpot()
     {
         Vector3 destination;
-        if(RandomPointOnNavmesh(transform.position.ProjectY(0.0f), 20.0f, out destination))
+        if(RandomPointOnNavmesh(transform.position.ProjectY(0.0f), WaypointRange, out destination))
         {
             NavMesh.CalculatePath(transform.position, destination, 1, path);
             nextPathIndex = 0;
