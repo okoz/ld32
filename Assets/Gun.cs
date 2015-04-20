@@ -31,7 +31,10 @@ public class Gun : MonoBehaviour
         float dy = -origin.y;
         float v0 = dx * Mathf.Sqrt(-Physics.gravity.magnitude / (2.0f * dy));
 
-        DisplayFireArc(origin, target);
+        if (Input.GetButton("Fire1") || Input.GetButton("Fire2"))
+        {
+            DisplayFireArc(origin, target);
+        }
 
         if (Input.GetButtonUp("Fire1"))
         {
@@ -44,6 +47,8 @@ public class Gun : MonoBehaviour
             {
                 rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
             }
+
+            ClearFireArc();
         }
         else if (Input.GetButtonUp("Fire2"))
         {
@@ -56,6 +61,8 @@ public class Gun : MonoBehaviour
             {
                 rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
             }
+
+            ClearFireArc();
         }
 	}
 
@@ -78,6 +85,11 @@ public class Gun : MonoBehaviour
             Vector3 p = origin + v0 * (target - origin).ProjectY(0).normalized * t + 0.5f * Physics.gravity * t * t;
             lineRenderer.SetPosition(i, p);
         }
+    }
+
+    private void ClearFireArc()
+    {
+        lineRenderer.SetVertexCount(0);
     }
 
     private GameObject GetNearestGunPoint(Vector3 target)
