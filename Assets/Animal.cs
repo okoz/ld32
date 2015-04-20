@@ -110,7 +110,7 @@ public class Animal : MonoBehaviour
         Vector3 destination;
         if(RandomPointOnNavmesh(transform.position.ProjectY(0.0f), WaypointRange, out destination))
         {
-            NavMesh.CalculatePath(transform.position, destination, 1, path);
+            NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
             nextPathIndex = 0;
 
             if(lineRenderer != null)

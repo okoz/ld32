@@ -51,10 +51,10 @@ public class Gun : MonoBehaviour
 
                 projectile.transform.position = origin;
 
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                if (rb != null)
+                Bullet b = projectile.GetComponent<Bullet>();
+                if (b != null)
                 {
-                    rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
+                    b.Fire(origin, target);
                 }
 
                 ClearFireArc();
@@ -66,10 +66,10 @@ public class Gun : MonoBehaviour
 
                 projectile.transform.position = origin;
 
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                if (rb != null)
+                Bullet b = projectile.GetComponent<Bullet>();
+                if (b != null)
                 {
-                    rb.AddForce((target - origin).ProjectY(0).normalized * v0, ForceMode.Impulse);
+                    b.Fire(origin, target);
                 }
 
                 ClearFireArc();

@@ -17,7 +17,6 @@ public class SlowBullet : Bullet
         {
             transform.SetParent(animal.HypoRoot, true);
             Destroy(this);
-            Destroy(GetComponent<Rigidbody>());
         }
         else
             Destroy(gameObject);

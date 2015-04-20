@@ -14,7 +14,6 @@ public class AngryBullet : Bullet {
         {
             transform.SetParent(animal.HypoRoot, true);
             Destroy(this);
-            Destroy(GetComponent<Rigidbody>());
         }
         else
             Destroy(gameObject);
