@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: polySurface13Mat
+  m_Name: Foliage_material
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: 2450
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,14 +18,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 1eb2a4ece94bccb4bb641b2e5e748331, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: c2be4d740a3af4e46b4ef352a9882fef, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -39,7 +39,7 @@ Material:
         first:
           name: _MetallicGlossMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 62e6f4dd88869534ba2d1b74e0541d11, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -53,14 +53,14 @@ Material:
         first:
           name: _OcclusionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 335d87ca6a2a9e44698823086dfcdfa0, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: d62b185407634d648971b318083dbfe8, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -125,21 +125,21 @@ Material:
       data:
         first:
           name: _EmissionScaleUI
-        second: 0
+        second: 1
       data:
         first:
           name: _Mode
-        second: 0
+        second: 1
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: .580882311, g: .580882311, b: .580882311, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .800000012, g: .800000012, b: .800000012, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .580882311, g: .580882311, b: .580882311, a: 1}
