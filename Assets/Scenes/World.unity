@@ -7902,6 +7902,14 @@ Prefab:
       propertyPath: WinScreen
       value: 
       objectReference: {fileID: 711680591}
+    - target: {fileID: 11425962, guid: 7a0ccbcc7de0f3b4a964db43e9c411c1, type: 2}
+      propertyPath: DetonationStartDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425962, guid: 7a0ccbcc7de0f3b4a964db43e9c411c1, type: 2}
+      propertyPath: DetonationDelay
+      value: .25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a0ccbcc7de0f3b4a964db43e9c411c1, type: 2}
   m_IsPrefabParent: 0
