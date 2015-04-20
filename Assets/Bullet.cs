@@ -19,4 +19,20 @@ public class Bullet : MonoBehaviour
             transform.LookAt(transform.position + rigidBody.velocity);
         }
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Animal animal = collision.gameObject.GetComponent<Animal>();
+        if (animal != null)
+        {
+            ApplyEffect(animal);
+        }
+        else
+            Destroy(gameObject);
+    }
+
+    protected virtual void ApplyEffect(Animal animal)
+    {
+        Destroy(gameObject);
+    }
 }

@@ -2436,7 +2436,6 @@ MonoBehaviour:
   MinForce: 5
   FireStatus: {fileID: 1861615201}
   FireStatusBackground: {fileID: 2001858862}
-  ActiveWeaponIcon: {fileID: 1840308052}
   GunPoints:
   - {fileID: 1328679215}
   - {fileID: 1843609562}

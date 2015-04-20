@@ -3,14 +3,22 @@ using System.Collections;
 
 public class AngryBullet : Bullet {
 
-    public void OnCollisionEnter(Collision collision)
+    protected override void ApplyEffect(Animal animal)
     {
-        Animal animal = collision.gameObject.GetComponent<Animal>();
-        if (animal != null)
+        if (animal.HypoRoot.childCount == 1 && animal.Demeanor != Demeanor.Angry)
         {
-            animal.Anger();
+            Destroy(animal.HypoRoot.GetChild(0).gameObject);
         }
 
-        Destroy(gameObject);
+        if (animal.Demeanor == Demeanor.Normal)
+        {
+            transform.SetParent(animal.HypoRoot, true);
+            Destroy(this);
+            Destroy(GetComponent<Rigidbody>());
+        }
+        else
+            Destroy(gameObject);
+
+        animal.Anger();
     }
 }

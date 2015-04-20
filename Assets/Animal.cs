@@ -38,6 +38,7 @@ public class Animal : MonoBehaviour
 {
     public float Speed;
     public float BiteRange;
+    public Transform HypoRoot;
 
     private CharacterController characterController;
     private LineRenderer lineRenderer;
