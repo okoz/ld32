@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sheep
   - Gun
+  - Game Master
   layers:
   - Default
   - TransparentFX

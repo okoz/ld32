@@ -267,6 +267,16 @@ public class Animal : MonoBehaviour
 
             if (displacement.sqrMagnitude <= BiteRange * BiteRange)
             {
+                GameObject gameMaster = GameObject.FindGameObjectWithTag("Game Master");
+                if (gameMaster != null)
+                {
+                    GameMaster gm = gameMaster.GetComponent<GameMaster>();
+                    if (gm != null)
+                    {
+                        gm.OnKill(target);
+                    }
+                }
+
                 Destroy(target);
             }
         }
