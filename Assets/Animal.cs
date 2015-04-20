@@ -40,6 +40,7 @@ public class Animal : MonoBehaviour
     public float BiteRange;
     public Transform HypoRoot;
     public float WaypointRange;
+    public GameObject GibExplosion;
 
     private CharacterController characterController;
     private LineRenderer lineRenderer;
@@ -287,6 +288,9 @@ public class Animal : MonoBehaviour
                         gm.OnKill(target);
                     }
                 }
+
+                GameObject gibs = GameObject.Instantiate<GameObject>(GibExplosion);
+                gibs.transform.position = target.transform.position;
 
                 Destroy(target);
             }

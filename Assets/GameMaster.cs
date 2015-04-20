@@ -8,14 +8,6 @@ public class GameMaster : MonoBehaviour {
     public GameObject LoseScreen;
     public GameObject WinScreen;
 
-	void Start ()
-    {
-	}
-	
-	void Update ()
-    {
-	}
-
     public void OnKill(GameObject go)
     {
         if (CantKill.Contains(go))
