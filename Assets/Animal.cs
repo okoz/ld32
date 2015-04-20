@@ -68,6 +68,13 @@ public class Animal : MonoBehaviour
 	void Update()
     {
         stateMachine.Update();
+
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion q = Quaternion.LookRotation(moveDirection, Vector3.up);
+            Quaternion newRotation = Quaternion.Lerp(transform.rotation, q, 0.1f);
+            transform.rotation = newRotation;
+        }
     }
 
     #region Animal interface.
@@ -212,6 +219,7 @@ public class Animal : MonoBehaviour
     }
 
     Vector3 lastPosition;
+    Vector3 moveDirection = Vector3.zero;
 
     private void Walking(StateMachine machine)
     {
@@ -223,12 +231,8 @@ public class Animal : MonoBehaviour
             if (demeanor == Demeanor.Slow)
                 effectiveSpeed *= slowFraction;
 
-            Vector3 moveDirection = (nextWaypoint - transform.position).ProjectY(0.0f);            
-            characterController.SimpleMove(moveDirection.normalized * effectiveSpeed);
-
-            // So the animals don't look down.
-            nextWaypoint.y = transform.position.y;
-            transform.LookAt(nextWaypoint);
+            moveDirection = (nextWaypoint - transform.position).ProjectY(0.0f).normalized;            
+            characterController.SimpleMove(moveDirection * effectiveSpeed);
         }
 
         // Should handle both stuck and end of movement.
@@ -257,9 +261,8 @@ public class Animal : MonoBehaviour
         if (target != null)
         {
             Vector3 displacement = target.transform.position - transform.position;
-            Vector3 moveDirection = (displacement).ProjectY(0.0f).normalized;
+            moveDirection = displacement.ProjectY(0.0f).normalized;
             characterController.SimpleMove(moveDirection * Speed);
-            transform.LookAt(target.transform.position);
 
             if (displacement.sqrMagnitude <= BiteRange * BiteRange)
             {
