@@ -215,6 +215,11 @@ public class Animal : MonoBehaviour
         stateMachine.SetState("Stopped");
     }
 
+    public void WakeUp()
+    {
+        stateMachine.SetState("Idle");
+    }
+
     #endregion
 
     #region Machine states.

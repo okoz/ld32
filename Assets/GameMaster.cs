@@ -5,6 +5,8 @@ public class GameMaster : MonoBehaviour {
     public List<GameObject> MustKill;
     public List<GameObject> CantKill;
     public GameObject PlayerGun;
+    public GameObject LoseScreen;
+    public GameObject WinScreen;
 
 	void Start ()
     {
@@ -21,6 +23,7 @@ public class GameMaster : MonoBehaviour {
             // You lose.
             PlayerGun.SetActive(false);
             StopSheep();
+            LoseScreen.SetActive(true);
         }
         else
         {
@@ -31,6 +34,7 @@ public class GameMaster : MonoBehaviour {
                 // Victory!
                 PlayerGun.SetActive(false);
                 StopSheep();
+                WinScreen.SetActive(true);
             }
         }
     }
