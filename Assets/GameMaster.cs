@@ -81,14 +81,6 @@ public class GameMaster : MonoBehaviour
         DescriptionShadowText.text = levelInfo.Description;
     }
 
-    public void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.Space))
-        {
-            NextLevel();
-        }
-    }
-
     public void NextLevel()
     {
         currentLevel++;
