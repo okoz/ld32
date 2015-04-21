@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LevelInfo
@@ -10,19 +11,23 @@ public class LevelInfo
     public int NumWhite;
     public int NumNuggets;
 
-    public int KillPink;
-    public int KillBlack;
-    public int KillWhite;
-    public int KillNuggets;
+    public bool KillPink;
+    public bool KillBlack;
+    public bool KillWhite;
+    public bool KillNuggets;
+
+    public string Description;
 }
 
 public class GameMaster : MonoBehaviour
 {
-    public List<GameObject> MustKill;
-    public List<GameObject> CantKill;
     public GameObject PlayerGun;
     public GameObject LoseScreen;
     public GameObject WinScreen;
+    public GameObject VictoryScreen;
+    public Text DescriptionText;
+    public Text DescriptionShadowText;
+
     public float DetonationStartDelay;
     public float DetonationDelay;
 
@@ -33,32 +38,75 @@ public class GameMaster : MonoBehaviour
     public GameObject NuggetSheep;
     public LevelInfo[] Levels;
 
+    private int currentLevel;
+    private LevelInfo levelInfo;
+
+    private List<GameObject> MustKill = new List<GameObject>();
+    private List<GameObject> CantKill = new List<GameObject>();
+
     public void Start()
     {
-        SetUpLevel(0);
+        SetUpLevel(currentLevel);
     }
 
     private void SetUpLevel(int i)
     {
+        MustKill.Clear();
+        CantKill.Clear();
+
         GameObject[] sheeps = GameObject.FindGameObjectsWithTag("Sheep");
         foreach (GameObject sheep in sheeps)
         {
             Destroy(sheep);
         }
         
-        LevelInfo level = Levels[i];
-        SpawnSheep(PinkSheep, level.NumPink);
-        SpawnSheep(BlackSheep, level.NumBlack);
-        SpawnSheep(WhiteSheep, level.NumWhite);
-        SpawnSheep(NuggetSheep, level.NumNuggets);
+        if (i >= Levels.Length)
+        {
+            PlayerGun.SetActive(false);
+            VictoryScreen.SetActive(true);
+            return;
+        }
+
+        LoseScreen.SetActive(false);
+        WinScreen.SetActive(false);
+        PlayerGun.SetActive(true);
+
+        levelInfo = Levels[i];
+        SpawnSheep(PinkSheep, levelInfo.NumPink, levelInfo.KillPink ? MustKill : CantKill);
+        SpawnSheep(BlackSheep, levelInfo.NumBlack, levelInfo.KillBlack ? MustKill : CantKill);
+        SpawnSheep(WhiteSheep, levelInfo.NumWhite, levelInfo.KillWhite ? MustKill : CantKill);
+        SpawnSheep(NuggetSheep, levelInfo.NumNuggets, levelInfo.KillNuggets ? MustKill : CantKill);
+
+        DescriptionText.text = levelInfo.Description;
+        DescriptionShadowText.text = levelInfo.Description;
     }
 
-    private void SpawnSheep(GameObject sheep, int count)
+    public void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            NextLevel();
+        }
+    }
+
+    public void NextLevel()
+    {
+        currentLevel++;
+        SetUpLevel(currentLevel);
+    }
+
+    public void RestartLevel()
+    {
+        SetUpLevel(currentLevel);
+    }
+
+    private void SpawnSheep(GameObject sheep, int count, IList<GameObject> list)
     {
         for (int i = 0; i < count; ++i)
         {
             GameObject newSheep = GameObject.Instantiate<GameObject>(sheep);
             newSheep.transform.position = RandomSpawnPoint();
+            list.Add(newSheep);
         }
     }
 
