@@ -51,6 +51,7 @@ public class GameMaster : MonoBehaviour
 
     private void SetUpLevel(int i)
     {
+        StopCoroutine("Detonate");
         MustKill.Clear();
         CantKill.Clear();
 
@@ -123,7 +124,7 @@ public class GameMaster : MonoBehaviour
             PlayerGun.SetActive(false);
             StopSheep();
             LoseScreen.SetActive(true);
-            StartCoroutine(Detonate());
+            StartCoroutine("Detonate");
         }
         else
         {
@@ -135,7 +136,7 @@ public class GameMaster : MonoBehaviour
                 PlayerGun.SetActive(false);
                 StopSheep();
                 WinScreen.SetActive(true);
-                StartCoroutine(Detonate());
+                StartCoroutine("Detonate");
             }
         }
     }
