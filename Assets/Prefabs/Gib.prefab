@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6526918}
   - 23: {fileID: 2356168}
   - 54: {fileID: 5430944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gib
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -104,7 +104,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: ccfdcebea1c745944bf19120dcaadd87, type: 3}
   Speed: 2
   HitDistance: .75
-  HitRadius: 5
+  HitRadius: 1
   Fraction: .5
   Duration: 5
 --- !u!136 &13664190
