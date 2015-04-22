@@ -183,6 +183,18 @@ public class Animal : MonoBehaviour
         return false;
     }
 
+    public Vector3 GetPosition(float t)
+    {
+        Vector3 nextWaypoint = NextWaypoint();
+        float effectiveSpeed = Speed;
+
+        if (demeanor == Demeanor.Slow)
+            effectiveSpeed *= slowFraction;
+
+        Vector3 direction = (nextWaypoint - transform.position).ProjectY(0.0f).normalized;
+        return transform.position + t * Time.deltaTime * direction * effectiveSpeed;
+    }
+
     #endregion
 
     #region Effects.

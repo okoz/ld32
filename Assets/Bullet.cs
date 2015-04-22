@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     public Sprite Icon;
     public float Speed;
     public float HitDistance;
+    public float HitRadius;
 
     private Vector3 origin;
     private Vector3 target;
@@ -40,6 +41,29 @@ public class Bullet : MonoBehaviour
                     ApplyEffect(animal);
                 }
             }
+        }
+
+        float timeToHit = (target.ProjectY(0.0f) - transform.position.ProjectY(0.0f)).magnitude / Speed;
+        Collider[] colliders = Physics.OverlapSphere(target, HitRadius);
+        float closestDistance = float.MaxValue;
+        Animal closestAnimal = null;
+        foreach (Collider collider in colliders)
+        {
+            Animal animal = collider.gameObject.GetComponent<Animal>();
+            if (animal != null)
+            {
+                float distance = Vector3.Distance(target, animal.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestAnimal = animal;
+                    closestDistance = distance;
+                }
+            }
+        }
+
+        if (closestAnimal != null)
+        {
+            target = closestAnimal.GetPosition(timeToHit) + transform.forward;
         }
     }
 
